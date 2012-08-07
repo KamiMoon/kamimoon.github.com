@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1024" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>WebSocket Presentation</title>
+
+<meta name="description"
+	content="WebSocket Presentation" />
+<meta name="author" content="Eric Kizaki" />
+
+<link
+	href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic"
+	rel="stylesheet" />
+<link href="css/impress-demo.css" rel="stylesheet" />
+
+<link rel="shortcut icon" href="favicon.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
+<script>
+$.SyntaxHighlighter.init();
+</script>
+
+</head>
+<body class="impress-not-supported">
+	<div class="fallback-message">
+		<p>
+			Your browser <b>doesn't support the features required</b> by
+			impress.js, so you are presented with a simplified version of this
+			presentation.
+		</p>
+		<p>
+			For the best experience please use the latest <b>Chrome</b>, <b>Safari</b>
+			or <b>Firefox</b> browser.
+		</p>
+	</div>
+	
+	<div id="impress">
+		<div id="start" class="step" data-x="-1600" data-y="-1500">
+			<div style="float: left;">
+				<img alt="HTML5 Logo" src="images/HTML5_Logo.png">
+			</div>
+
+			<div style="float: left;">
+				<strong style="font-size: 78px">WebSockets</strong>
+				<p>Eric Kizaki</p>
+			</div>
+
+			<div style="clear: both;"></div>
+			<p>
+				<em>*No longer just a HTML5 technology (IETF)</em>
+			</p>
+		</div>
+
+		<div id="definitiion" class="step" data-x="-2200" data-y="-1500"
+			data-z="-3000">
+			<strong>bi-directional</strong>, <strong>full-duplex</strong>
+			communications channels over a <strong>single TCP connection</strong>
+		</div>
+
+		<div id="relatedTech" class="step slide" data-x="1000" data-y="-1500">
+			<strong class="slideTitle">Related Tech</strong>
+			<ul>
+				<li>Polling</li>
+				<li>Long-polling</li>
+				<li>Streaming</li>
+				<li>SSE</li>
+			</ul>
+		</div>
+
+		<div class="step slide" data-x="2200" data-y="-1500">
+			<q style="font-size: 24px; line-height: 30px; margin-top: 0px;">"Reducing
+				kilobytes of data to 2 bytes…and reducing latency from 150ms to 50ms
+				is far more than marginal. In fact, these two factors alone are
+				enough to make Web Sockets seriously interesting to Google." </q> <em
+				style="font-size: 24px"> -Ian Hickson, HTML5 Specification lead</em>
+
+			<img style="width: 650px; margin-left: 10px; float:left" alt="performance graph"
+				src="images/poll-ws-compare.gif" />
+			<ul style="float:left">
+				<li>A: 1000 clients</li>
+				<li>B: 10,000 clients</li>
+				<li>C: 100,000 clients</li>
+			</ul>	
+			<em style="clear: both">*http://www.websocket.org/quantum.html</em>
+		</div>
+		
+		<div class="step" data-x="2200" data-y="-1500" data-z="3000" data-rotate-z="180" data-rotate-x="90">
+			<iframe width="900" height="600" src="http://www.youtube.com/embed/Z897fkPn7Rw?start=125" frameborder="0" allowfullscreen></iframe>
+		</div>
+		
+		<div id="handshake" class="step cube" data-x="1500" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="-45" data-rotate-z="0">
+			<pre class="handshakes">
+				GET /mychat HTTP/1.1
+				Host: server.example.com
+				Upgrade: websocket
+				Connection: Upgrade
+				Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+				Sec-WebSocket-Protocol: chat
+				Sec-WebSocket-Version: 13
+				Origin: http://example.com
+			</pre>
+			
+			<pre class="handshakes">
+				HTTP/1.1 101 Switching Protocols
+				Upgrade: websocket
+				Connection: Upgrade
+				Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+				Sec-WebSocket-Protocol: chat
+			</pre>
+		</div>
+		
+		<div  class="step cube" data-x="-1500" data-y="3500" data-z="50" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="45" data-rotate-z="0">
+		port 80 and 443 (HTTPS) - firewall same security issues as HTTP no magic ports required like Flash
+			
+		</div>
+		
+		<div  class="step cube" data-x="-1500" data-y="3500" data-z="50" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0">
+			<img alt="code" src="images/websocketinterface.jpg">
+		</div>
+		
+		<div  class="step cube" data-x="-2700" data-y="3500" data-z="50" data-scale="0.5" data-y="3500" data-z="1000" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0">
+			<pre class="language-javascript">
+			if ('WebSocket' in window){
+				//create an object with some sub-protocols
+				//use wss for SSL
+				var connection = new WebSocket('ws://html5rocks.websocket.org/echo', ['soap', 'xmpp']);
+				
+				// When the connection is open, send some data to the server
+				var message = {
+					'name': 'bill murray',
+					'comment': 'No one will ever believe you'
+				};
+				connection.onopen = function () {
+					connection.send(connection.send(JSON.stringify(message)));
+				};
+				
+				connection.onerror = function (error) {
+  					console.log('WebSocket Error ' + error);
+				};
+				
+				// Log messages from the server
+				connection.onmessage = function (e) {
+  					console.log('Server: ' + e.data);
+				};
+				
+				// Sending canvas ImageData as ArrayBuffer
+				var img = canvas_context.getImageData(0, 0, 400, 320);
+				var binary = new Uint8Array(img.data.length);
+				for (var i = 0; i < img.data.length; i++) {
+					binary[i] = img.data[i];
+				}
+				connection.send(binary.buffer);
+
+				// Sending file as Blob
+				var file = document.querySelector('input[type="file"]').files[0];
+				connection.send(file);
+			}	
+			</pre>
+		</div>
+		
+		<div  class="step" data-x="-1500" data-y="4200" data-z="50" data-scale="0.5" data-y="3500" data-z="1000" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0">
+			<img alt="caniuse" src="images/caniuse.JPG"  width="1024" height="700">
+		</div>
+		
+		<div  class="step" data-x="-1440" data-y="3863" data-z="50" data-scale="0.5" data-y="3500" data-z="1200" data-rotate-x="-180" data-rotate-y="250" data-rotate-z="180">
+			<img alt="java" src="images/javaapps.JPG" width="1024" height="700">
+		</div>
+		
+		<div id="overview" class="step" data-x="3000" data-y="1500"
+			data-scale="10"></div>
+
+	</div>
+
+	<div class="hint">
+		<p>Use a spacebar or arrow keys to navigate</p>
+	</div>
+	<script>
+		if ("ontouchstart" in document.documentElement) {
+			document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+		}
+	</script>
+
+	<script src="js/impress.js"></script>
+	<script>
+		impress().init();
+	</script>
+
+</body>
+</html>
