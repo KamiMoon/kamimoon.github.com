@@ -4,7 +4,7 @@
  * Opera  - 'oTransitionEnd'
  * IE - 'transitionend '
  */
-var transitionEndEvent = "webKitTransitionEnd istransitionend oTransitionEnd transitionend";
+var transitionEndEvent = "webKitTransitionEnd istransitionend oTransitionEnd transitionend webkitAnimationEnd";
 
 $(document).ready(function(){
 	var $parking = $("#parking");
