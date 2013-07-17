@@ -111,28 +111,27 @@
 			<strong class="slideTitle">Example</strong>
 			<br/>
 			
-			<pre style="font-size: 24px;">
-			<!DOCTYPE html><html><head><style>.railcar {height: 100px;width: 200px;background-color: red;transition-property: width, background-color;transition-duration: 2s, 4s;transition-delay: 0s;transition-timing-function: linear;}.railcar:hover {width: 600px;background-color: green;}</style></head><body>
-					<div class="railcar"></div>
-					<pre style="float: left;">
-					.railcar {
-						height: 100px;
-						width: 200px;
-						background-color: red;
+			<pre style="font-size: 20px;">
+			<!DOCTYPE html><html><head><style>.railcar {height: 100px;width: 200px;background-color: red;-webkit-transition-property: width, background-color;-webkit-transition-duration: 2s, 4s;-webkit-transition-delay: 0s;-webkit-transition-timing-function: linear;}.railcar:hover {width: 600px;background-color: green;}</style></head><body><div class="railcar"></div>
+<pre style="float: left;">
+.railcar {
+height: 100px;
+width: 200px;
+background-color: red;
 						
-						transition-property: width, background-color;
-						transition-duration: 2s, 4s;
-						transition-timing-function: linear;
-						transition-delay: 0s;
-					}
-					</pre>
+transition-property: width, background-color;
+transition-duration: 2s, 4s;
+transition-timing-function: linear;
+transition-delay: 0s;
+}
+</pre>
 					
-					<pre style="float: left;">
-					.railcar:hover {
-						width: 600px;
-						background-color: green;
-					}
-					</pre>
+<pre style="float: left; margin-left: 60px;">
+.railcar:hover {
+width: 600px;
+background-color: green;
+}
+</pre>
 					
 					<div style="clear: both;"></div>
 				</body></html>
