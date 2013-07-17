@@ -7,10 +7,11 @@
 var transitionEndEvent = "webKitTransitionEnd istransitionend oTransitionEnd transitionend";
 
 $(document).ready(function(){
-	var $app = $("#app");
+	var $parking = $("#parking");
 	var $train1 = $("#train_1");
 	var $locomotive1 = $("#locomotive_1");
 	var $containers = $(".container");
+		
 	
 	$locomotive1.click(function(){
 		//move the train back and forth
@@ -29,7 +30,7 @@ $(document).ready(function(){
 		//register for the end of the transition
 		$this.one(transitionEndEvent, function(){
 			//when it is done animating add the clone
-			$clone.appendTo($app);
+			$clone.appendTo($parking);
 		});
 		
 	});
