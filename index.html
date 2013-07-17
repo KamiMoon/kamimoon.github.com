@@ -1,29 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=1024" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<title>WebSocket Presentation</title>
-
-<meta name="description"
-	content="WebSocket Presentation" />
-<meta name="author" content="Eric Kizaki" />
+<title>CSS3 Transitions</title>
 
 <link
 	href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic"
 	rel="stylesheet" />
-<link href="css/impress-demo.css" rel="stylesheet" />
+<link href="css/impressCssTransitions.css" rel="stylesheet" />
 
 <link rel="shortcut icon" href="favicon.png" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-<script src="http://balupton.github.com/jquery-syntaxhighlighter/scripts/jquery.syntaxhighlighter.min.js"></script>
-<script>
-$.SyntaxHighlighter.init();
-</script>
-
 </head>
 <body class="impress-not-supported">
 	<div class="fallback-message">
@@ -37,139 +28,228 @@ $.SyntaxHighlighter.init();
 			or <b>Firefox</b> browser.
 		</p>
 	</div>
-	
+	<!--
+    To change the duration of the transition between slides use `data-transition-duration="2000"` giving it
+    a number of ms. It defaults to 1000 (1s).
+    
+    You can also control the perspective with `data-perspective="500"` giving it a number of pixels.
+    It defaults to 1000. You can set it to 0 if you don't want any 3D effects.
+    If you are willing to change this value make sure you understand how CSS perspective works:
+    https://developer.mozilla.org/en/CSS/perspective
+-->
+	<!--
+        So to make a summary of all the possible attributes used to position presentation steps, we have:
+        
+        * `data-x`, `data-y`, `data-z` - they define the position of **the center** of step element on
+            the canvas in pixels; their default value is 0;
+        * `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` - they define the rotation of
+            the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
+            are exactly the same;
+        * `data-scale` - defines the scale of step element; default value is 1
+        
+        These values are used by impress.js in CSS transformation functions, so for more information consult
+        CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
+    -->
+	<!--
+        
+        The `id` attribute of the step element is used to identify it in the URL, but it's optional.
+        If it is not defined, it will get a default value of `step-N` where N is a number of slide.
+        
+        So in the example below it'll be `step-2`.
+        
+        The hash part of the url when this step is active will be `#/step-2`.
+        
+        You can also use `#step-2` in a link, to point directly to this particular step.
+        
+        Please note, that while `#/step-2` (with slash) would also work in a link it's not recommended.
+        Using classic `id`-based links like `#step-2` makes these links usable also in fallback mode.
+        
+    -->
 	<div id="impress">
 		<div id="start" class="step" data-x="-1600" data-y="-1500">
 			<div style="float: left;">
-				<img alt="HTML5 Logo" src="images/HTML5_Logo.png">
+				<img alt="HTML5 Logo" src="images/cssTransitions/HTML5_Logo.png">
 			</div>
 
 			<div style="float: left;">
-				<strong style="font-size: 78px">WebSockets</strong>
+				<strong style="font-size: 78px">CSS3 Transitions</strong>
 				<p>Eric Kizaki</p>
 			</div>
 
 			<div style="clear: both;"></div>
-			<p>
-				<em>*No longer just a HTML5 technology (IETF)</em>
-			</p>
 		</div>
 
 		<div id="definitiion" class="step" data-x="-2200" data-y="-1500"
 			data-z="-3000">
-			<strong>bi-directional</strong>, <strong>full-duplex</strong>
-			communications channels over a <strong>single TCP connection</strong>
+			
+			<div style="font-size: 65px;">
+			“CSS Transitions allows property changes in CSS values to occur 
+			smoothly over a specified duration.”
+			</div>
+			
+			<div style="font-size: 30px; margin-left: 100px; margin-top: 20px;">
+				-http://www.w3.org/TR/css3-transitions/
+			</div>
+			
+			<div style="text-align: center; margin-top: 20px;">
+				<img src="images/cssTransitions/cssTransitionsDefinition.jpg" height="232">
+			</div>
+			
+			
 		</div>
 
 		<div id="relatedTech" class="step slide" data-x="1000" data-y="-1500">
-			<strong class="slideTitle">Related Tech</strong>
+			<strong class="slideTitle">How</strong>
 			<ul>
-				<li>Polling</li>
-				<li>Long-polling</li>
-				<li>Streaming</li>
-				<li>SSE</li>
+				<li>HTML</li>
+				<li>CSS</li>
+				<li>Apply</li>
 			</ul>
 		</div>
 
 		<div class="step slide" data-x="2200" data-y="-1500">
-			<q style="font-size: 24px; line-height: 30px; margin-top: 0px;">"Reducing
-				kilobytes of data to 2 bytes…and reducing latency from 150ms to 50ms
-				is far more than marginal. In fact, these two factors alone are
-				enough to make Web Sockets seriously interesting to Google." </q> <em
-				style="font-size: 24px"> -Ian Hickson, HTML5 Specification lead</em>
-
-			<img style="width: 650px; margin-left: 10px; float:left" alt="performance graph"
-				src="images/poll-ws-compare.gif" />
-			<ul style="float:left">
-				<li>A: 1000 clients</li>
-				<li>B: 10,000 clients</li>
-				<li>C: 100,000 clients</li>
-			</ul>	
-			<em style="clear: both">*http://www.websocket.org/quantum.html</em>
-		</div>
-		
-		<div class="step" data-x="2200" data-y="-1500" data-z="3000" data-rotate-z="180" data-rotate-x="90">
-			<iframe width="900" height="600" src="http://www.youtube.com/embed/Z897fkPn7Rw?start=125" frameborder="0" allowfullscreen></iframe>
-		</div>
-		
-		<div id="handshake" class="step cube" data-x="1500" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="-45" data-rotate-z="0">
-			<pre class="handshakes">
-				GET /mychat HTTP/1.1
-				Host: server.example.com
-				Upgrade: websocket
-				Connection: Upgrade
-				Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
-				Sec-WebSocket-Protocol: chat
-				Sec-WebSocket-Version: 13
-				Origin: http://example.com
-			</pre>
+			<strong class="slideTitle">Example</strong>
+			<br/>
 			
-			<pre class="handshakes">
-				HTTP/1.1 101 Switching Protocols
-				Upgrade: websocket
-				Connection: Upgrade
-				Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
-				Sec-WebSocket-Protocol: chat
+			<pre style="font-size: 24px;">
+			<!DOCTYPE html><html><head><style>.railcar {height: 100px;width: 200px;background-color: red;transition-property: width, background-color;transition-duration: 2s, 4s;transition-delay: 0s;transition-timing-function: linear;}.railcar:hover {width: 600px;background-color: green;}</style></head><body>
+					<div class="railcar"></div>
+					<pre style="float: left;">
+					.railcar {
+						height: 100px;
+						width: 200px;
+						background-color: red;
+						
+						transition-property: width, background-color;
+						transition-duration: 2s, 4s;
+						transition-timing-function: linear;
+						transition-delay: 0s;
+					}
+					</pre>
+					
+					<pre style="float: left;">
+					.railcar:hover {
+						width: 600px;
+						background-color: green;
+					}
+					</pre>
+					
+					<div style="clear: both;"></div>
+				</body></html>
 			</pre>
 		</div>
+				
 		
-		<div  class="step cube" data-x="-1500" data-y="3500" data-z="50" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="45" data-rotate-z="0">
-		port 80 and 443 (HTTPS) - firewall same security issues as HTTP no magic ports required like Flash
-			
-		</div>
-		
-		<div  class="step cube" data-x="-1500" data-y="3500" data-z="50" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0">
-			<img alt="code" src="images/websocketinterface.jpg">
-		</div>
-		
-		<div  class="step cube" data-x="-2700" data-y="3500" data-z="50" data-scale="0.5" data-y="3500" data-z="1000" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0">
-			<pre class="language-javascript">
-			if ('WebSocket' in window){
-				//create an object with some sub-protocols
-				//use wss for SSL
-				var connection = new WebSocket('ws://html5rocks.websocket.org/echo', ['soap', 'xmpp']);
-				
-				// When the connection is open, send some data to the server
-				var message = {
-					'name': 'bill murray',
-					'comment': 'No one will ever believe you'
-				};
-				connection.onopen = function () {
-					connection.send(connection.send(JSON.stringify(message)));
-				};
-				
-				connection.onerror = function (error) {
-  					console.log('WebSocket Error ' + error);
-				};
-				
-				// Log messages from the server
-				connection.onmessage = function (e) {
-  					console.log('Server: ' + e.data);
-				};
-				
-				// Sending canvas ImageData as ArrayBuffer
-				var img = canvas_context.getImageData(0, 0, 400, 320);
-				var binary = new Uint8Array(img.data.length);
-				for (var i = 0; i < img.data.length; i++) {
-					binary[i] = img.data[i];
-				}
-				connection.send(binary.buffer);
 
-				// Sending file as Blob
-				var file = document.querySelector('input[type="file"]').files[0];
-				connection.send(file);
-			}	
-			</pre>
+		
+				<div class="step slide" data-x="1500" data-y="3500" data-z="50">
+			<strong class="slideTitle">Animatable properties</strong>
+			<div style="font-size: 50px;
+margin-top: 35px;
+margin-bottom: 30px;
+font-family: Times New Roman;
+word-spacing: 60px;line-height: 70px;">
+background border bottom clip color
+font-size font-weight height left letter-spacing
+line-height margin max-width min-height
+min-width opacity outline padding right
+text-indent text-shadow top vertical-align visibility width word-spacing z-index
+			</div>
+			<div>*also SVG ones</div>
 		</div>
 		
+				<div class="step slide" data-x="3500" data-y="3500" data-z="150">
+			<ul style="margin-top: 30px;
+font-size: 40px;
+list-style-type: square;
+line-height: 60px;">
+
+				<li>Transition Duration default of 0, which means no animation</li>
+				<li>Transition Timing Functions: ease | linear | ease-in | ease-out | ease-in-out | step-start | step-end | steps| cubic-bezier</li>
+				<li>Transition Delay of a negative number starts the animation further in</li>
+			</ul>
+		</div>
+		
+		<div  class="step slide" data-x="-1500" data-y="3500" data-z="50" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="45" data-rotate-z="0">
+			<strong class="slideTitle">Pros</strong>
+			<ul style="margin-top: 30px;
+font-size: 40px;
+list-style-type: square;
+line-height: 60px;">
+				<li>No Flash</li>
+				<li>No JavaScript</li>
+				<li><a href="http://css3.bradshawenterprises.com/blog/jquery-vs-css3-transitions/?rows=50" target="_blank">Performance</a></li>
+			</ul>
+			
+			<div style="margin-top: 30px;">*You will use JavaScript</div>
+		</div>
+		
+		<div  class="step" data-x="-1500" data-y="3500" data-z="50" data-y="3500" data-z="50" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0">
+			<img alt="caniuse" src="images/cssTransitions/CanIUseCssTransitions.JPG"  width="1024" height="700">
+		
+			<a href="http://playground.benbarnett.net/jquery-animate-enhanced/">jQuery Animate Enhanced</a>
+		</div>
+
 		<div  class="step" data-x="-1500" data-y="4200" data-z="50" data-scale="0.5" data-y="3500" data-z="1000" data-rotate-x="-30" data-rotate-y="135" data-rotate-z="0">
-			<img alt="caniuse" src="images/caniuse.JPG"  width="1024" height="700">
+			<div style="font-size: 45px;">
+			"While authors can use transitions to create dynamically changing content, 
+			dynamically changing content can lead to seizures in some users. 
+			For information on how to avoid content that can lead to seizures, 
+			see Guideline 2.3: Seizures:
+		    Do not design content in a way that is known to cause seizures ([WCAG20]).""
+		    </div>
+		    
+		    <div style="font-size: 30px; margin-left: 100px; margin-top: 15px;">
+				-http://www.w3.org/TR/css3-transitions/
+			</div>
 		</div>
-		
-		<div  class="step" data-x="-1440" data-y="3863" data-z="50" data-scale="0.5" data-y="3500" data-z="1200" data-rotate-x="-180" data-rotate-y="250" data-rotate-z="180">
-			<img alt="java" src="images/javaapps.JPG" width="1024" height="700">
+
+		<div  class="step" data-x="-1500" data-y="4200" data-z="50" data-scale="0.5" data-y="3500" data-z="1000" data-rotate-x="-180" data-rotate-y="135" data-rotate-z="0">
+			<strong class="slideTitle"><a href="GraphicalTrain.html">Demo</a></strong>
 		</div>
-		
+		<!--  
+    <div id="title" class="step" data-x="0" data-y="0" data-scale="4">
+        <span class="try">then you should try</span>
+        <h1>impress.js<sup>*</sup></h1>
+        <span class="footnote"><sup>*</sup> no rhyme intended</span>
+    </div>
+
+    <div id="its" class="step" data-x="850" data-y="3000" data-rotate="90" data-scale="5">
+        <p>It's a <strong>presentation tool</strong> <br/>
+        inspired by the idea behind <a href="http://prezi.com">prezi.com</a> <br/>
+        and based on the <strong>power of CSS3 transforms and transitions</strong> in modern browsers.</p>
+    </div>
+
+    <div id="big" class="step" data-x="3500" data-y="2100" data-rotate="180" data-scale="6">
+        <p>visualize your <b>big</b> <span class="thoughts">thoughts</span></p>
+    </div>
+
+    <div id="tiny" class="step" data-x="2825" data-y="2325" data-z="-3000" data-rotate="300" data-scale="1">
+        <p>and <b>tiny</b> ideas</p>
+    </div>
+
+    <div id="ing" class="step" data-x="3500" data-y="-850" data-rotate="270" data-scale="6">
+        <p>by <b class="positioning">positioning</b>, <b class="rotating">rotating</b> and <b class="scaling">scaling</b> them on an infinite canvas</p>
+    </div>
+
+    <div id="imagination" class="step" data-x="6700" data-y="-300" data-scale="6">
+        <p>the only <b>limit</b> is your <b class="imagination">imagination</b></p>
+    </div>
+
+    <div id="source" class="step" data-x="6300" data-y="2000" data-rotate="20" data-scale="4">
+        <p>want to know more?</p>
+        <q><a href="http://github.com/bartaz/impress.js">use the source</a>, Luke!</q>
+    </div>
+
+    <div id="one-more-thing" class="step" data-x="6000" data-y="4000" data-scale="2">
+        <p>one more thing...</p>
+    </div>
+
+    <div id="its-in-3d" class="step" data-x="6200" data-y="4300" data-z="-100" data-rotate-x="-40" data-rotate-y="10" data-scale="2">
+        <p><span class="have">have</span> <span class="you">you</span> <span class="noticed">noticed</span> <span class="its">it's</span> <span class="in">in</span> <b>3D<sup>*</sup></b>?</p>
+        <span class="footnote">* beat that, prezi ;)</span>
+    </div>
+    -->
 		<div id="overview" class="step" data-x="3000" data-y="1500"
 			data-scale="10"></div>
 
@@ -188,6 +268,31 @@ $.SyntaxHighlighter.init();
 	<script>
 		impress().init();
 	</script>
+
+	<!--
+    
+    The `impress()` function also gives you access to the API that controls the presentation.
+    
+    Just store the result of the call:
+    
+        var api = impress();
+    
+    and you will get three functions you can call:
+    
+        `api.init()` - initializes the presentation,
+        `api.next()` - moves to next step of the presentation,
+        `api.prev()` - moves to previous step of the presentation,
+        `api.goto( idx | id | element, [duration] )` - moves the presentation to the step given by its index number
+                id or the DOM element; second parameter can be used to define duration of the transition in ms,
+                but it's optional - if not provided default transition duration for the presentation will be used.
+    
+    You can also simply call `impress()` again to get the API, so `impress().next()` is also allowed.
+    Don't worry, it wont initialize the presentation again.
+    
+    For some example uses of this API check the last part of the source of impress.js where the API
+    is used in event handlers.
+    
+-->
 
 </body>
 </html>
